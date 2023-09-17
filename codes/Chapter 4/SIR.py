@@ -13,21 +13,13 @@ def pref_func(a, b, c, d, e, m):
     for u-shape, 'vs' for v-shape, 'le' for level,
     'li' for linear, and 'g' for Gaussian), m is min/max
     """
-    f = float(1.0)
+    f = 1.0
     if m == 1:
-        temp = a
-        a = b
-        b = temp
+        a, b = b, a
     if e == 'u': # Usual preference function
-        if b - a > 0:
-            f = 1
-        else:
-            f = 0
+        f = 1 if b - a > 0 else 0
     elif e == 'us': # U-shape preference function
-        if b - a > c:
-            f = 1
-        elif b - a <= c:
-            f = 0
+        f = 1 if b - a > c else 0
     elif e == 'vs': # V-shape preference function
         if b - a > d:
             f = 1
@@ -50,11 +42,11 @@ def pref_func(a, b, c, d, e, m):
         else:
             f = ((b - a) - c) / (d - c)
     elif e == 'g': # Gaussian preference function
-        if b - a > 0:
-            f = 1 - math.exp(-(math.pow(b - a, 2)
-                / (2 * d ** 2)))
-        else:
-            f = 0
+        f = (
+            1 - math.exp(-(math.pow(b - a, 2) / (2 * d**2)))
+            if b - a > 0
+            else 0
+        )
     return f
 
 # Calculate S and I matrices

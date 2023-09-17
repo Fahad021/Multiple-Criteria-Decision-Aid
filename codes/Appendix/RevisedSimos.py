@@ -37,7 +37,7 @@ for i in range(subsets.shape[0]):
 k = ones(positions)
 totalk = k[0] * c[0]
 for i in range(1, positions):
-    k[i] = 1 + u * sum(e[0:i])
+    k[i] = 1 + u * sum(e[:i])
     totalk = totalk + k[i] * c[i]
 
 # calculate the normalized weights

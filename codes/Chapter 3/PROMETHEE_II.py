@@ -18,13 +18,11 @@ def promethee(x, p, c, d, w):
 	'li' for linear, and 'g' for Gaussian), and w
     is the weights array
     """
-    weighted_uni_net_flows = []
     total_net_flows = []
-    for i in range(x.shape[1]):
-        weighted_uni_net_flows.append(w[i] *
-            uni_cal(x[:, i:i + 1], p[:,
-            i:i + 1], c[i], d[i]))
-	
+    weighted_uni_net_flows = [
+        w[i] * uni_cal(x[:, i : i + 1], p[:, i : i + 1], c[i], d[i])
+        for i in range(x.shape[1])
+    ]
     # print the weighted unicriterion preference
     # net flows
     for i in range(size(weighted_uni_net_flows, 1)):

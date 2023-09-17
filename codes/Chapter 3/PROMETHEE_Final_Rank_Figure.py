@@ -19,22 +19,28 @@ def graph(flows, b):
     y = argsort(flows)
     l = []
     for i in y:
-        s.node('action' + str(i), '''<
+        s.node(
+            f'action{str(i)}',
+            '''<
         <TABLE BORDER="0" CELLBORDER="1"
             CELLSPACING="0" CELLPADDING="4">
           <TR>
             <TD COLSPAN="2" bgcolor="grey" >Action
-                ''' + str(y[i] + 1) + '''</TD>
+                '''
+            + str(y[i] + 1)
+            + '''</TD>
           </TR>
           <TR>
-            <TD>'''+ b +'''</TD>
-            <TD>''' + str(x[i]) + '''</TD>
+            <TD>'''
+            + b
+            + '''</TD>
+            <TD>'''
+            + str(x[i])
+            + '''</TD>
           </TR>
-        </TABLE>>''')
-    k = []
-    for q in range(len(flows) - 1):
-        k.append(['action' + str(q + 1), 'action'
-            + str(q)])
+        </TABLE>>''',
+        )
+    k = [[f'action{str(q + 1)}', f'action{str(q)}'] for q in range(len(flows) - 1)]
     print(k)
     s.edges(k)
     s.view()
@@ -51,16 +57,18 @@ def plot(a, b):
     frame1.axes.get_xaxis().set_visible(False)
     plt.axis([0, 0.7, min(flows) - 0.05,
         max(flows) + 0.05])
-    plt.title(b + " results")
+    plt.title(f"{b} results")
     plt.ylabel("Flows")
     plt.legend()
     plt.grid(True)
-    z1 = []
-    for i in range(size(flows, 0)):
-        z1.append('   (Action ' + str(i + 1) + ')')
+    z1 = [f'   (Action {str(i + 1)})' for i in range(size(flows, 0))]
     z = [str(a) + b for a, b in zip(flows, z1)]
     for X, Y, Z in zip(yaxes_list, flows, z):
-        plt.annotate('{}'.format(Z), xy = (X, Y),
-            xytext=(10, -4), ha = 'left',
-            textcoords = 'offset points')
+        plt.annotate(
+            f'{Z}',
+            xy=(X, Y),
+            xytext=(10, -4),
+            ha='left',
+            textcoords='offset points',
+        )
     plt.show()

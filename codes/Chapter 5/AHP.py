@@ -13,10 +13,12 @@ def norm(x):
     criteria or the alternatives
     """
     k = array(sum(x, 0))
-    z = array([[round(x[i, j] / k[j], 3) 
-		for j in range(x.shape[1])]
-        for i in range(x.shape[0])])
-    return z
+    return array(
+        [
+            [round(x[i, j] / k[j], 3) for j in range(x.shape[1])]
+            for i in range(x.shape[0])
+        ]
+    )
 
 # geometric mean method
 def geomean(x):
@@ -71,11 +73,7 @@ def ahp(PCM, PCcriteria, m, n, c):
         S.append(s)
     S = transpose(S)
 
-    # calculate the global priority vector for the
-	# alternatives
-    v = S.dot(w.T)
-
-    return v
+    return S.dot(w.T)
 
 # main function
 def main(a, b, c):
