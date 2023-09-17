@@ -40,9 +40,7 @@ def SR(a, b, c):
                 / (b[j, 0] - b[j, 1])
             if u > o:
                 o = u
-                r[i] = round(o, 3)
-            else:
-                r[i] = round(o, 3)
+            r[i] = round(o, 3)
         s[i] = round(k, 3)
     return s, r
 

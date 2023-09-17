@@ -23,10 +23,7 @@ def uni_cal(x, p, c, f):
             if i == j:
                 uni[i, j] = 0
             elif f == 'u':  # Usual preference function
-                if x[j] - x[i] > 0:
-                    uni[i, j] = 1
-                else:
-                    uni[i, j] = 0
+                uni[i, j] = 1 if x[j] - x[i] > 0 else 0
             elif f == 'us': # U-shape preference function
                 if x[j] - x[i] > x[0]:
                     uni[i, j] = 1
@@ -67,5 +64,4 @@ def uni_cal(x, p, c, f):
     # positive, negative and net flows
     pos_flows = sum(uni, 1) / (uni.shape[0] - 1)
     neg_flows = sum(uni, 0) / (uni.shape[0] - 1)
-    net_flows = pos_flows - neg_flows
-    return net_flows
+    return pos_flows - neg_flows

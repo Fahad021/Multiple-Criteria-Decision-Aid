@@ -25,12 +25,10 @@ def agg_fuzzy_value(a, b, k):
         k2 = 0
         k3 = a[b[j][0]][3]
         for i in range (len(b[1])):
-            if k0 > a[b[j][i]][0]:
-                k0 = a[b[j][i]][0]
+            k0 = min(k0, a[b[j][i]][0])
             k1 = k1 + a[b[j][i]][1]
             k2 = k2 + a[b[j][i]][2]
-            if k3 < a[b[j][i]][3]:
-                k3 = a[b[j][i]][3]
+            k3 = max(k3, a[b[j][i]][3])
         f[j][0] = round(k0, 3)
         f[j][1] = round(k1 / k, 3)
         f[j][2] = round(k2 / k, 3)
@@ -82,9 +80,7 @@ def SR(a, b, c):
                 / (b[j, 0] - b[j, 1])
             if u > o:
                 o = u
-                r[i] = round(o, 3)
-            else:
-                r[i] = round(o, 3)
+            r[i] = round(o, 3)
         s[i] = round(k, 3)
     return s, r
 

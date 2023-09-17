@@ -52,10 +52,7 @@ def weighted_fndm(a, b, n, m):
     f = zeros((n * m, 3))
     z = 0
     for i in range(n * m):
-        if i % len(b) == 0:
-            z = 0
-        else:
-            z = z + 1
+        z = 0 if i % len(b) == 0 else z + 1
         for j in range(3):
             f[i][j] = round(a[i][j] * b[z][j], 3)
     return f
@@ -128,16 +125,11 @@ def f_topsis(a, b, c, d, n, m, k, pl):
 
     # Steps 6 and 7
     a_plus = func_dist_fpis(
-		weighted_fuzzy_norm_decision_matrix, n, m)
+    weighted_fuzzy_norm_decision_matrix, n, m)
     a_minus = func_dist_fnis(
-		weighted_fuzzy_norm_decision_matrix, n, m)
+    weighted_fuzzy_norm_decision_matrix, n, m)
 
-    # Step 8
-    CC = [] # closeness coefficient
-    for i in range(m):
-        CC.append(round(a_minus[i] / (a_plus[i] +
-            a_minus[i]), 3))
-
+    CC = [round(a_minus[i] / (a_plus[i] + a_minus[i]), 3) for i in range(m)]
     if pl == 'y':
         q = [i + 1 for i in range(m)]
         plt.plot(q, a_plus, 'p--', color = 'red',
